@@ -2,6 +2,11 @@
 -- GUARANTEED FAILSAFE GATE
 -- =====================================
 
+game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("oldhacfards krystal dance V2 reanimate")
+task.wait("5")
+game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("Thanks For Executing krystal dance by oldhacfard / loading this is take while")
+task.wait("6")
+
 local Players = game:GetService("Players")
 local lp = Players.LocalPlayer
 
