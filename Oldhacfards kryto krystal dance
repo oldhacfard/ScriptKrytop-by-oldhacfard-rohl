@@ -6,6 +6,7 @@ game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("oldhacfard
 task.wait("5")
 game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("Thanks For Executing krystal dance by oldhacfard / loading this is take while")
 task.wait("6")
+game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("V2 fixed issue")
 
 loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Myworld-reanimate-oldhacfards-reanimation-script-V2-92186"))()
 
