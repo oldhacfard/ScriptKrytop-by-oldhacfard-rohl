@@ -2,6 +2,8 @@
 	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
 ]]
 loadstring(game:HttpGet("https://raw.githubusercontent.com/oldhacfard/The-script1/refs/heads/main/Luauscript.luau"))()
+game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("-gh 4623059912")
+game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("by oldhacfard lighting cannon")
 
 --By oldhacfard my main acconut
 wait("4")
