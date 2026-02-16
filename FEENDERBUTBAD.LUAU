@@ -1,12 +1,7 @@
 local StarterGui = game:GetService("StarterGui")
 local workspace = game:GetService("Workspace")
 
-local function sendNotificationWithSound(title, text, duration)
-    StarterGui:SetCore("SendNotification", {
-        Title = title,
-        Text = text,
-        Duration = duration
-    })
+
     local sound = Instance.new("Sound")
     sound.SoundId = "rbxassetid://17582299860"
     sound.Volume = 1
@@ -22,10 +17,7 @@ sound.Volume = 1
 sound.Parent = root
 sound:Play()
 
-sendNotificationWithSound("Used Oldhacfards's Reanimation", "Credit To Oldhacfard & C00l_Ch4os", 4)
-wait(1)
-sendNotificationWithSound("Have Fun :3", "I'm (C00l_Ch4os) Is A Femboy And Furry btw <3", 4)
-task.wait(1)
+
 
 local duration = 2
 sendNotificationWithSound("Reanimating by Oldhacfard", "Duration: "..duration.."s", duration)
