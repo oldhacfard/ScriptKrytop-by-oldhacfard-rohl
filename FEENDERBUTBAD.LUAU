@@ -1,5 +1,12 @@
+local StarterGui = game:GetService("StarterGui")
 local workspace = game:GetService("Workspace")
 
+local function sendNotificationWithSound(title, text, duration)
+    StarterGui:SetCore("SendNotification", {
+        Title = title,
+        Text = text,
+        Duration = duration
+    })
     local sound = Instance.new("Sound")
     sound.SoundId = "rbxassetid://17582299860"
     sound.Volume = 1
@@ -14,6 +21,15 @@ sound.Looped = true
 sound.Volume = 1
 sound.Parent = root
 sound:Play()
+
+sendNotificationWithSound(" Oldhacfards's Reanimation", "loading", 4)
+wait(1)
+sendNotificationWithSound("Have Fun ", "LOOK", 4)
+task.wait(1)
+
+local duration = 2
+sendNotificationWithSound("Reanimating by Oldhacfard", "Duration: "..duration.."s", duration)
+wait(duration)
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/oldhacfard/The-script/refs/heads/main/Reanimate.luau"))()
 
