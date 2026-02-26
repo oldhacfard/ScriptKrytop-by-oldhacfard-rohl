@@ -1,0 +1,79 @@
+-- KESİN KONTROL: MOBİL UYUMLU UÇAN KAFA SCRIPT
+local lp = game:GetService("Players").LocalPlayer
+local char = lp.Character or lp.CharacterAdded:Wait()
+local head = char:WaitForChild("Head")
+local hum = char:FindFirstChildOfClass("Humanoid")
+local camera = workspace.CurrentCamera
+
+-- 1. Vücudu Sil ve Karakteri Serbest Bırak
+hum:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
+for _, v in pairs(char:GetChildren()) do
+    if v:IsA("BasePart") and v.Name ~= "Head" then
+        v:Destroy()
+    elseif v:IsA("Accessory") then
+        v:Destroy()
+    end
+end
+
+-- Kafayı fiziksel etkilerden kurtaralım (Titremeyi önler)
+head.CanCollide = false
+head.Anchored = true 
+
+-- 2. GUI TASARIMI
+local ScreenGui = Instance.new("ScreenGui", lp.PlayerGui)
+ScreenGui.Name = "KafaHackerV3"
+
+local function createBtn(name, pos, size, text)
+    local btn = Instance.new("TextButton", ScreenGui)
+    btn.Name = name
+    btn.Size = size
+    btn.Position = pos
+    btn.Text = text
+    btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    btn.BackgroundTransparency = 0.4
+    btn.TextColor3 = Color3.new(1, 1, 1)
+    btn.BorderSizePixel = 2
+    return btn
+end
+
+-- Sol Taraf: İleri/Geri
+local Fwd = createBtn("Fwd", UDim2.new(0.1, 0, 0.65, 0), UDim2.new(0, 60, 0, 60), "İLERİ")
+local Bwd = createBtn("Bwd", UDim2.new(0.1, 0, 0.8, 0), UDim2.new(0, 60, 0, 60), "GERİ")
+
+-- Sağ Taraf: Yukarı/Aşağı
+local Up = createBtn("Up", UDim2.new(0.8, 0, 0.65, 0), UDim2.new(0, 70, 0, 60), "YUKARI")
+local Down = createBtn("Down", UDim2.new(0.8, 0, 0.8, 0), UDim2.new(0, 70, 0, 60), "AŞAĞI")
+
+-- 3. HAREKET DEĞİŞKENLERİ
+local speed = 2
+local move = {F = 0, B = 0, U = 0, D = 0}
+
+Fwd.MouseButton1Down:Connect(function() move.F = 1 end)
+Fwd.MouseButton1Up:Connect(function() move.F = 0 end)
+Bwd.MouseButton1Down:Connect(function() move.B = 1 end)
+Bwd.MouseButton1Up:Connect(function() move.B = 0 end)
+Up.MouseButton1Down:Connect(function() move.U = 1 end)
+Up.MouseButton1Up:Connect(function() move.U = 0 end)
+Down.MouseButton1Down:Connect(function() move.D = 1 end)
+Down.MouseButton1Up:Connect(function() move.D = 0 end)
+
+-- 4. ANA DÖNGÜ (Kafa Pozisyonunu Güncelleme)
+game:GetService("RunService").RenderStepped:Connect(function()
+    -- Kafayı kameranın baktığı yöne döndür
+    local camLook = camera.CFrame.LookVector
+    local currentPos = head.Position
+    
+    -- Hareket hesaplama
+    local newPos = currentPos
+    
+    if move.F == 1 then newPos = newPos + (camLook * speed) end
+    if move.B == 1 then newPos = newPos - (camLook * speed) end
+    if move.U == 1 then newPos = newPos + Vector3.new(0, speed, 0) end
+    if move.D == 1 then newPos = newPos - Vector3.new(0, speed, 0) end
+    
+    -- Pozisyonu ve rotasyonu uygula
+    head.CFrame = CFrame.new(newPos, newPos + camLook)
+end)
+
+camera.CameraSubject = head
+print("Kafa Kontrolü Aktif: Butonlarla uçabilirsin!")
